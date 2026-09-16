@@ -39,7 +39,7 @@ Services start on:
 - **Operator**: http://localhost:3001
 - **Tenant**: http://localhost:3002
 - **API**: http://localhost:4000 (internal)
-- **Database**: postgres://postgres:postgres@localhost:5432/addmin
+- **Database**: postgres://postgres:postgres@localhost:PORT/addmin (host port is assigned dynamically to avoid conflicts; run `docker-compose port postgres 5432` to find it, or set `POSTGRES_PORT` to pin it)
 
 ### 2. **Run Database Migrations**
 

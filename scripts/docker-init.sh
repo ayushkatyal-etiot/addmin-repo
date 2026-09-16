@@ -76,8 +76,10 @@ echo "  • Operator: http://localhost:3001"
 echo "  • Tenant:   http://localhost:3002"
 echo "  • API:      http://localhost:3001 (internal)"
 echo ""
+postgres_port=$(docker-compose port postgres 5432 2>/dev/null | cut -d: -f2)
+
 echo "🗄️  Database:"
-echo "  • Host:     localhost:5432"
+echo "  • Host:     localhost:${postgres_port:-unknown}"
 echo "  • Database: addmin"
 echo "  • User:     postgres"
 echo "  • Password: postgres"
