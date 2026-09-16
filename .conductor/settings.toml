@@ -1,0 +1,83 @@
+# Conductor Workspace Settings for AddMin
+# Runscripts for launching and managing AddMin development environment
+
+[[runscripts]]
+id = "launch-apps"
+name = "🚀 Launch Web Apps"
+description = "Start all services (PostgreSQL, API, Website, Operator, Tenant) with Docker and open in browser"
+command = "./scripts/launch-apps.sh"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = true
+
+[[runscripts]]
+id = "launch-fast"
+name = "⚡ Launch (Skip Build)"
+description = "Start services without rebuilding Docker images (faster startup)"
+command = "./scripts/launch-apps.sh --no-build"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = true
+
+[[runscripts]]
+id = "launch-quiet"
+name = "🔇 Launch (No Browser)"
+description = "Start all services but don't open browser"
+command = "./scripts/launch-apps.sh --no-open"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = true
+
+[[runscripts]]
+id = "stop-all"
+name = "🛑 Stop Services"
+description = "Stop all Docker containers"
+command = "make docker-down"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = false
+keepOpen = false
+
+[[runscripts]]
+id = "logs"
+name = "📋 View Logs"
+description = "Stream real-time logs from all services"
+command = "make docker-logs"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = true
+
+[[runscripts]]
+id = "db-shell"
+name = "🗄️ Database Shell"
+description = "Connect to PostgreSQL shell (psql)"
+command = "make docker-db-shell"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = true
+
+[[runscripts]]
+id = "migrate"
+name = "🔄 Run Migrations"
+description = "Apply pending database migrations"
+command = "make docker-db-migrate"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = false
+
+[[runscripts]]
+id = "type-check"
+name = "✓ Type Check"
+description = "Run TypeScript type checking across all packages"
+command = "pnpm type-check"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = true
+keepOpen = false
+
+[[runscripts]]
+id = "help"
+name = "❓ Launch Help"
+description = "Show launch script options and usage"
+command = "./scripts/launch-apps.sh --help"
+cwd = "/Users/ayushkatyal/conductor/workspaces/addmin-repo/port-louis"
+interactive = false
+keepOpen = true
