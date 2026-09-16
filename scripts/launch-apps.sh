@@ -234,6 +234,8 @@ open_browser() {
 print_status() {
     log_header "✅ AddMin is Running!"
 
+    local postgres_port=$(docker-compose port postgres 5432 2>/dev/null | cut -d: -f2)
+
     echo ""
     echo -e "${GREEN}Web Applications:${NC}"
     echo "  • Website (Marketing):      ${BLUE}http://localhost:3000${NC}"
@@ -242,7 +244,7 @@ print_status() {
 
     echo ""
     echo -e "${GREEN}Database:${NC}"
-    echo "  • Host:                     ${BLUE}localhost:5432${NC}"
+    echo "  • Host:                     ${BLUE}localhost:${postgres_port:-unknown}${NC}"
     echo "  • Database:                 ${BLUE}addmin${NC}"
     echo "  • User:                     ${BLUE}postgres${NC}"
     echo "  • Password:                 ${BLUE}postgres${NC}"
