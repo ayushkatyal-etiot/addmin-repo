@@ -38,7 +38,7 @@ Services start on:
 - **Website**: http://localhost:3000
 - **Operator**: http://localhost:3001
 - **Tenant**: http://localhost:3002
-- **API**: http://localhost:3001 (internal)
+- **API**: http://localhost:4000 (internal)
 - **Database**: postgres://postgres:postgres@localhost:5432/addmin
 
 ### 2. **Run Database Migrations**
@@ -135,7 +135,7 @@ The project uses `.env.docker` for Docker-specific variables:
 DATABASE_URL=postgresql://postgres:postgres@postgres:5432/addmin
 
 # API
-API_URL=http://api:3001
+API_URL=http://api:4000
 
 # NextAuth
 NEXTAUTH_SECRET=dev-secret-key-min-32-characters-long-for-local-dev
@@ -160,7 +160,7 @@ docker-compose up
   │
   ├─ postgres:5432 ──────────────────────── PostgreSQL 16 (persistent volume)
   │
-  ├─ api:3001 ────────────────────────── Express API
+  ├─ api:4000 ────────────────────────── Express API
   │   └─ depends_on: postgres
   │   └─ volumes: live code reload
   │   └─ pnpm --filter @addmin/api dev
@@ -187,8 +187,8 @@ docker-compose up
 ## Networking
 
 All services communicate via the `addmin-network` bridge:
-- Internal API calls: `http://api:3001`
-- External (from host): `http://localhost:3001`
+- Internal API calls: `http://api:4000`
+- External (from host): `http://localhost:4000`
 
 ## Troubleshooting
 

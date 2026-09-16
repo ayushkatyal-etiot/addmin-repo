@@ -2,7 +2,6 @@ services:
   # PostgreSQL Database
   postgres:
     image: postgres:16-alpine
-    container_name: addmin-postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -24,13 +23,12 @@ services:
     build:
       context: .
       dockerfile: services/api/Dockerfile
-    container_name: addmin-api
     environment:
       NODE_ENV: ${NODE_ENV:-development}
-      PORT: ${API_PORT:-3001}
+      PORT: ${API_PORT:-4000}
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-addmin}
     ports:
-      - "${API_PORT:-3001}:${API_PORT:-3001}"
+      - "${API_PORT:-4000}:${API_PORT:-4000}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -47,12 +45,11 @@ services:
     build:
       context: .
       dockerfile: apps/website/Dockerfile
-    container_name: addmin-website
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       NEXTAUTH_URL: http://localhost:3000
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key-min-32-characters-long}
-      API_URL: http://api:${API_PORT:-3001}
+      API_URL: http://api:${API_PORT:-4000}
     ports:
       - "3000:3000"
     depends_on:
@@ -70,12 +67,11 @@ services:
     build:
       context: .
       dockerfile: apps/operator/Dockerfile
-    container_name: addmin-operator
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       NEXTAUTH_URL: http://localhost:3001
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key-min-32-characters-long}
-      API_URL: http://api:${API_PORT:-3001}
+      API_URL: http://api:${API_PORT:-4000}
     ports:
       - "3001:3001"
     depends_on:
@@ -93,12 +89,11 @@ services:
     build:
       context: .
       dockerfile: apps/tenant/Dockerfile
-    container_name: addmin-tenant
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       NEXTAUTH_URL: http://localhost:3002
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-key-min-32-characters-long}
-      API_URL: http://api:${API_PORT:-3001}
+      API_URL: http://api:${API_PORT:-4000}
     ports:
       - "3002:3002"
     depends_on:

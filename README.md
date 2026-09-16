@@ -22,7 +22,7 @@ addmin/
 │   ├── operator/             # Admin control plane (port 3001)
 │   └── tenant/               # Product app (port 3002)
 ├── services/
-│   └── api/                  # Backend API (port 3001)
+│   └── api/                  # Backend API (port 4000)
 ├── packages/
 │   ├── db/                   # Prisma schema & migrations
 │   ├── types/                # Shared TypeScript types
@@ -95,7 +95,7 @@ See [DOCKER.md](./DOCKER.md) for complete Docker setup guide.
    - Website: http://localhost:3000
    - Operator: http://localhost:3001
    - Tenant: http://localhost:3002
-   - API: http://localhost:3001
+   - API: http://localhost:4000
 
 ## Available Commands
 
