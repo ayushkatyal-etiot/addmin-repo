@@ -1,74 +1,51 @@
 # Conductor Workspace Settings for AddMin
 # Runscripts for launching and managing AddMin development environment
 
-[[runscripts]]
-id = "launch-apps"
-name = "🚀 Launch Web Apps"
-description = "Start all services (PostgreSQL, API, Website, Operator, Tenant) with Docker and open in browser"
+[scripts.run.launch-apps]
 command = "./scripts/launch-apps.sh"
-interactive = true
-keepOpen = true
+default = true
+icon = "rocket"
+available_in = "local"
 
-[[runscripts]]
-id = "launch-fast"
-name = "⚡ Launch (Skip Build)"
-description = "Start services without rebuilding Docker images (faster startup)"
-command = "./scripts/launch-apps.sh --no-build"
-interactive = true
-keepOpen = true
+[scripts.run.launch-fast]
+command = "./scripts/launch-apps.sh"
+args = ["--no-build"]
+icon = "zap"
+available_in = "local"
 
-[[runscripts]]
-id = "launch-quiet"
-name = "🔇 Launch (No Browser)"
-description = "Start all services but don't open browser"
-command = "./scripts/launch-apps.sh --no-open"
-interactive = true
-keepOpen = true
+[scripts.run.launch-quiet]
+command = "./scripts/launch-apps.sh"
+args = ["--no-open"]
+icon = "server"
+available_in = "local"
 
-[[runscripts]]
-id = "stop-all"
-name = "🛑 Stop Services"
-description = "Stop all Docker containers"
+[scripts.run.stop-all]
 command = "make docker-down"
-interactive = false
-keepOpen = false
+icon = "stop-circle"
+available_in = "local"
 
-[[runscripts]]
-id = "logs"
-name = "📋 View Logs"
-description = "Stream real-time logs from all services"
+[scripts.run.logs]
 command = "make docker-logs"
-interactive = true
-keepOpen = true
+icon = "file-text"
+available_in = "local"
 
-[[runscripts]]
-id = "db-shell"
-name = "🗄️ Database Shell"
-description = "Connect to PostgreSQL shell (psql)"
+[scripts.run.db-shell]
 command = "make docker-db-shell"
-interactive = true
-keepOpen = true
+icon = "database"
+available_in = "local"
 
-[[runscripts]]
-id = "migrate"
-name = "🔄 Run Migrations"
-description = "Apply pending database migrations"
+[scripts.run.migrate]
 command = "make docker-db-migrate"
-interactive = true
-keepOpen = false
+icon = "arrow-up-circle"
+available_in = "local"
 
-[[runscripts]]
-id = "type-check"
-name = "✓ Type Check"
-description = "Run TypeScript type checking across all packages"
+[scripts.run.type-check]
 command = "pnpm type-check"
-interactive = true
-keepOpen = false
+icon = "check-circle"
+available_in = "local"
 
-[[runscripts]]
-id = "help"
-name = "❓ Launch Help"
-description = "Show launch script options and usage"
-command = "./scripts/launch-apps.sh --help"
-interactive = false
-keepOpen = true
+[scripts.run.help]
+command = "./scripts/launch-apps.sh"
+args = ["--help"]
+icon = "help-circle"
+available_in = "local"
