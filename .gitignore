@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+.nyc_output
+
+# Next.js
+.next
+out
+*.log
+
+# Build
+dist
+build
+
+# Environment variables
+.env.local
+.env.*.local
+.env
+
+# IDEs
+.vscode
+.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Turbo
+.turbo
+
+# Prisma
+.env.test.local
+prisma/*.db
+prisma/*.db-shm
+prisma/*.db-wal
+
+# OS
+.DS_Store
+Thumbs.db
