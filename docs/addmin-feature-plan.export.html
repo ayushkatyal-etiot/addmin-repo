@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="luxury">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Tenant SaaS Feature Plan</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/daisyui.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@5.5.19/themes.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4/dist/index.global.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    :where(.grid, .flex) > * { min-width: 0; }
+    :where(p, h1, h2, h3, h4, h5, h6, li, dd, blockquote, figcaption, td, th, .badge, .label) {
+      overflow-wrap: anywhere;
+    }
+    :where(img, svg, video, canvas, iframe) {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body class="bg-base-100">
+  <main class="mx-auto max-w-7xl p-6 lg:p-10">
+    <!-- Header -->
+    <section class="mb-10">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <h1 class="text-4xl font-bold mb-2">AddMin SaaS Platform - Feature Plan & Architecture</h1>
+          <p class="text-base-content/70 mb-2"><strong>Office Administration Management System</strong> — process-first, not expense-first</p>
+          <p class="text-base-content/60 text-sm"><strong>Core Principle:</strong> ADD OFFICE → SYSTEM TELLS USER WHAT MUST BE MANAGED → USER CONFIRMS → SYSTEM TRACKS OBLIGATIONS → ROUTES ACTIONS → CLOSES & AUDITS → MANAGEMENT SEES RESULTS</p>
+        </div>
+        <div class="alert alert-info gap-3 flex-shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 flex-shrink-0 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <span class="text-sm">Click features to edit • Use the form below to add new features</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="mb-10 card card-border bg-gradient-to-br from-purple-50 to-blue-50 shadow-md">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-6">Tech Stack for Monorepo SaaS Architecture</h2>
+        <p class="text-base-content/70 mb-6">AI-friendly tech stack optimized for code generation and a monorepo with three distinct services.</p>
+
+        <div class="grid gap-6 lg:grid-cols-3">
+          <!-- Website (Marketing) -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500">
+            <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+              <span class="badge badge-sm badge-blue">Website</span>
+              Marketing
+            </h3>
+            <div class="space-y-2 text-sm">
+              <p><strong>Framework:</strong> Next.js (App Router)</p>
+              <p><strong>Why:</strong> React is AI-friendly, built-in routing/auth, file-based structure</p>
+              <p><strong>Styling:</strong> Tailwind CSS + shadcn/ui</p>
+              <p><strong>Static/Edge:</strong> Vercel Edge for fast global delivery</p>
+              <p><span class="badge badge-xs">AI Advantage</span> Predictable component structure = better code generation</p>
+            </div>
+          </div>
+
+          <!-- Platform Operator (SaaS Control Plane) -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-green-500">
+            <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+              <span class="badge badge-sm badge-success">Operator</span>
+              Control Plane
+            </h3>
+            <div class="space-y-2 text-sm">
+              <p><strong>Backend:</strong> Node.js (Express/Fastify)</p>
+              <p><strong>Why:</strong> Shared language, async-first, rich ecosystem</p>
+              <p><strong>Database:</strong> PostgreSQL + Redis</p>
+              <p><strong>Admin UI:</strong> Next.js (same as website)</p>
+              <p><span class="badge badge-xs">AI Advantage</span> Monorepo shares models, migrations, utilities</p>
+            </div>
+          </div>
+
+          <!-- Tenant App (Product) -->
+          <div class="bg-white rounded-lg p-4 border-l-4 border-purple-500">
+            <h3 class="font-bold text-lg mb-3 flex items-center gap-2">
+              <span class="badge badge-sm badge-secondary">Tenant</span>
+              Product
+            </h3>
+            <div class="space-y-2 text-sm">
+              <p><strong>Frontend:</strong> Next.js (App Router)</p>
+              <p><strong>Why:</strong> Isomorphic, easy to customize per tenant</p>
+              <p><strong>Backend:</strong> Shared Node.js API</p>
+              <p><strong>Styling:</strong> Tailwind + CSS-in-JS (emotion/styled-components)</p>
+              <p><span class="badge badge-xs">AI Advantage</span> Component-driven = AI can generate features incrementally</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monorepo Setup -->
+        <div class="divider my-6"></div>
+        <div class="bg-white rounded-lg p-4 border border-base-300">
+          <h3 class="font-bold text-lg mb-3">Monorepo Setup</h3>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div>
+              <p class="font-semibold text-sm mb-2">Option A: Turborepo (Recommended)</p>
+              <ul class="text-sm space-y-1 text-base-content/70 list-inside">
+                <li>✓ Fast, simple, minimal config</li>
+                <li>✓ Great caching (local + cloud)</li>
+                <li>✓ Perfect for Next.js apps</li>
+                <li class="badge badge-xs badge-warning">Smaller community</li>
+              </ul>
+            </div>
+            <div>
+              <p class="font-semibold text-sm mb-2">Option B: Nx</p>
+              <ul class="text-sm space-y-1 text-base-content/70 list-inside">
+                <li>✓ More powerful plugins</li>
+                <li>✓ Better code generation</li>
+                <li>✓ Dependency analysis</li>
+                <li class="badge badge-xs badge-warning">Steeper learning curve</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shared Infrastructure -->
+        <div class="mt-4 bg-white rounded-lg p-4 border border-base-300">
+          <h3 class="font-bold text-lg mb-3">Shared Infrastructure (All Apps)</h3>
+          <div class="grid gap-3 text-sm">
+            <div class="flex gap-3">
+              <span class="badge badge-primary">Auth</span>
+              <span>NextAuth.js / Auth0 (shared session logic across apps)</span>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-info">API</span>
+              <span>TypeScript (tRPC or OpenAPI for shared types)</span>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-warning">DB</span>
+              <span>Prisma ORM (schema-driven, migrations, seed scripts)</span>
+            </div>
+            <div class="flex gap-3">
+              <span class="badge badge-success">Testing</span>
+              <span>Vitest + Playwright (fast, parallel, AI-testable)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monorepo Structure -->
+        <div class="mt-4 bg-white rounded-lg p-4 border border-base-300">
+          <h3 class="font-bold text-lg mb-3">Monorepo Structure (Turborepo)</h3>
+          <div class="text-sm font-mono bg-base-100 p-3 rounded overflow-auto max-h-96">
+            <pre>addmin/
+├── apps/
+│   ├── website/              # Marketing site + pricing page
+│   │   ├── app/              # Next.js App Router
+│   │   ├── components/       # React components
+│   │   ├── pages/            # Landing, pricing, help center
+│   │   └── package.json
+│   ├── operator/             # SaaS control plane (Next.js admin UI)
+│   │   ├── app/              # Next.js App Router (admin pages)
+│   │   ├── components/       # Admin UI components
+│   │   └── package.json
+│   └── tenant/               # Product frontend (Next.js user app)
+│       ├── app/              # Next.js App Router (user pages)
+│       ├── components/       # Feature components (utilities, lease, etc)
+│       ├── hooks/            # Custom React hooks
+│       └── package.json
+├── services/
+│   └── api/                  # Node.js backend (Express/Fastify)
+│       ├── src/
+│       │   ├── routes/       # API endpoints (/orgs, /users, /bills, etc)
+│       │   ├── middleware/   # Auth, RLS enforcement, error handling
+│       │   ├── services/     # Business logic (billings, workflows, etc)
+│       │   ├── db/           # Database queries, migrations
+│       │   └── index.ts      # Server entry point
+│       └── package.json
+├── packages/
+│   ├── db/                   # Prisma schema + migrations (shared)
+│   │   ├── prisma/
+│   │   │   ├── schema.prisma # Unified schema for all tenants
+│   │   │   └── migrations/   # Auto-generated by Prisma
+│   │   └── package.json
+│   ├── types/                # Shared TypeScript types
+│   │   ├── index.ts          # Organization, Office, User, Bill, etc
+│   │   └── package.json
+│   ├── auth/                 # NextAuth.js config (shared)
+│   │   ├── config.ts
+│   │   ├── callbacks.ts      # JWT, session, signIn logic
+│   │   └── package.json
+│   ├── utils/                # Helpers (formatting, validation, RLS)
+│   │   ├── rls.ts            # Row-level security utilities
+│   │   ├── validators.ts     # Input validation
+│   │   ├── formatters.ts     # Date, currency, etc
+│   │   └── package.json
+│   └── testing/              # Test utilities
+│       ├── factories.ts      # Test data generators
+│       ├── mocks.ts          # Mock database, auth
+│       └── package.json
+├── turbo.json                # Turborepo configuration
+├── package.json              # Root workspace config
+├── pnpm-workspace.yaml       # pnpm monorepo declaration
+├── .env.local                # Shared environment variables
+└── .gitignore</pre>
+          </div>
+          <p class="text-xs text-base-content/60 mt-2"><strong>Package manager:</strong> pnpm (faster, stricter hoisting)</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Prisma Schema -->
+    <section class="mb-10 card card-border bg-blue-50 shadow-md">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Prisma Schema (Shared Database with RLS)</h2>
+        <p class="text-base-content/70 mb-4">Single PostgreSQL for all tenants. Row-level security enforced at the database layer.</p>
+
+        <div class="text-sm font-mono bg-base-100 p-4 rounded overflow-auto max-h-screen">
+          <pre>// ==================== TENANT ISOLATION (RLS) ====================
+// All queries filtered by office_id via PostgreSQL RLS policies
+// Schema designed for office-level data isolation
+
+// ==================== CORE ORGANIZATION ====================
+model Organization {{
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  offices   Office[]
+  billing   Billing?
+
+  @@index([email])
+}}
+
+model Office {{
+  id              String   @id @default(cuid())
+  organizationId  String
+  name            String
+  address         String
+  city            String
+  state           String
+  zipCode         String
+  country         String @default("India")
+  isOwned         Boolean  // true = owned, false = rented
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Core relations
+  users           OfficeUser[]
+  utilities       UtilityConnection[]
+  lease           Lease?
+  landlord        Landlord?
+  bills           Bill[]
+  compliance      ComplianceInstance[]
+  assets          Asset[]
+  facilities      Facility[]
+  vendors         Vendor[]
+  workflows       Workflow[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+}}
+
+// ==================== USERS & ROLES ====================
+model User {{
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?   // hashed, null if OAuth
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Auth relations
+  accounts      Account[]
+  sessions      Session[]
+  officeUsers   OfficeUser[]
+  invites       UserInvite[]
+  workflowSteps Workflow[]
+
+  @@index([email])
+}}
+
+model OfficeUser {{
+  id        String   @id @default(cuid())
+  userId    String
+  officeId  String
+  role      Role     // ADMIN, CHECKER, AUTHORIZER, COMPLIANCE, VENDOR_MGR, FACILITY_STAFF
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  office    Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, officeId])
+  @@index([officeId])
+}}
+
+enum Role {{
+  ADMIN
+  CHECKER
+  AUTHORIZER
+  COMPLIANCE
+  VENDOR_MGR
+  FACILITY_STAFF
+}}
+
+model UserInvite {{
+  id        String   @id @default(cuid())
+  email     String
+  officeId  String
+  role      Role
+  token     String   @unique
+  expiresAt DateTime
+  userId    String?  // populated after user signs up
+  createdAt DateTime @default(now())
+
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}}
+
+// ==================== UTILITIES ====================
+model UtilityConnection {{
+  id         String   @id @default(cuid())
+  officeId   String
+  type       String   // ELECTRICITY, WATER, GAS, INTERNET, etc
+  provider   String   // BSNL, Airtel, etc
+  accountNum String
+  meterNum   String?
+  billingCycle Int // day of month
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  office     Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  bills      Bill[]
+
+  @@unique([officeId, type, provider])
+  @@index([officeId])
+}}
+
+model Bill {{
+  id                String   @id @default(cuid())
+  officeId          String
+  utilityId         String
+  amount            Decimal
+  dueDate           DateTime
+  invoiceNum        String?
+  status            WorkflowStatus // DRAFT, PENDING, APPROVED, REJECTED, PAID
+  madeBy            String   // userId of maker
+  checkedBy         String?  // userId of checker
+  authorizedBy      String?  // userId of authorizer
+  remarks           String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  office            Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  utility           UtilityConnection @relation(fields: [utilityId], references: [id], onDelete: Cascade)
+  payments          Payment[]
+  workflows         Workflow[]
+
+  @@index([officeId, status])
+  @@index([dueDate])
+}}
+
+model Payment {{
+  id        String   @id @default(cuid())
+  billId    String
+  amount    Decimal
+  mode      String   // BANK_TRANSFER, CHEQUE, CASH, etc
+  date      DateTime
+  refNum    String?  // reference number
+  createdAt DateTime @default(now())
+
+  bill      Bill     @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  @@index([billId])
+}}
+
+// ==================== LEASE & LANDLORD ====================
+model Landlord {{
+  id         String   @id @default(cuid())
+  officeId   String   @unique
+  name       String
+  panTan     String?
+  phone      String?
+  email      String?
+  bankName   String?
+  bankAcct   String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  office     Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  leases     Lease[]
+
+  @@index([officeId])
+}}
+
+model Lease {{
+  id                String   @id @default(cuid())
+  officeId          String   @unique
+  landlordId        String
+  rentAmount        Decimal
+  camAmount         Decimal?
+  escalation        Int?     // % per year
+  securityDeposit   Decimal?
+  depositRefundDate DateTime?
+  startDate         DateTime
+  endDate           DateTime?
+  tdsPercent        Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  office            Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  landlord          Landlord @relation(fields: [landlordId], references: [id])
+
+  @@index([officeId])
+}}
+
+// ==================== COMPLIANCE ====================
+model ComplianceType {{
+  id        String   @id @default(cuid())
+  name      String   @unique  // Trade Licence, Fire NOC, etc
+  category  String   // LEGAL, SAFETY, ENVIRONMENTAL
+
+  instances ComplianceInstance[]
+}}
+
+model ComplianceInstance {{
+  id             String   @id @default(cuid())
+  officeId       String
+  typeId         String
+  certificateNum String?
+  issueDate      DateTime
+  expiryDate     DateTime
+  status         String   // VALID, EXPIRING_SOON, EXPIRED
+  documentUrl    String?  // uploaded cert
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  office         Office         @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  type           ComplianceType @relation(fields: [typeId], references: [id])
+
+  @@unique([officeId, typeId])
+  @@index([officeId, expiryDate])
+}}
+
+// ==================== ASSETS ====================
+model Asset {{
+  id         String   @id @default(cuid())
+  officeId   String
+  name       String
+  category   String   // IT, FURNITURE, EQUIPMENT, FIXED_ASSET
+  location   String?
+  custodian  String?  // userId or name
+  purchaseDate DateTime?
+  value      Decimal?
+  warrantyEnd DateTime?
+  status     String   // ACTIVE, RETIRED, DAMAGED
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  office     Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  requests   AssetRequest[]
+
+  @@index([officeId, status])
+}}
+
+model AssetRequest {{
+  id        String   @id @default(cuid())
+  officeId  String
+  requestedBy String // userId
+  assetId   String?  // if requesting existing asset
+  category  String   // if new asset needed
+  description String
+  status    String   // PENDING, APPROVED, ALLOCATED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  asset     Asset?   @relation(fields: [assetId], references: [id])
+
+  @@index([officeId, status])
+}}
+
+// ==================== FACILITIES ====================
+model Facility {{
+  id        String   @id @default(cuid())
+  officeId  String
+  name      String   // Cleaning, AC, DG, UPS, etc
+  owner     String?  // custodian name/id
+  lastMaint DateTime?
+  createdAt DateTime @default(now())
+
+  office    Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  requests  MaintenanceRequest[]
+
+  @@unique([officeId, name])
+  @@index([officeId])
+}}
+
+model MaintenanceRequest {{
+  id          String   @id @default(cuid())
+  facilityId  String
+  officeId    String
+  reportedBy  String   // userId
+  description String
+  status      String   // OPEN, IN_PROGRESS, COMPLETED
+  vendorId    String?
+  slaDueDate  DateTime?
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  facility    Facility @relation(fields: [facilityId], references: [id])
+  office      Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
+  evidence    MaintenanceEvidence[]
+
+  @@index([officeId, status])
+  @@index([slaDueDate])
+}}
+
+model MaintenanceEvidence {{
+  id          String   @id @default(cuid())
+  requestId   String
+  type        String   // PHOTO, VIDEO
+  url         String
+  capturedAt  DateTime
+
+  request     MaintenanceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+}}
+
+// ==================== VENDORS ====================
+model Vendor {{
+  id        String   @id @default(cuid())
+  officeId  String
+  name      String
+  category  String   // MAINTENANCE, CLEANING, IT, etc
+  phone     String?
+  email     String?
+  gstNum    String?
+  createdAt DateTime @default(now())
+
+  office    Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  amc       VendorAMC[]
+  requests  MaintenanceRequest[]
+
+  @@unique([officeId, name])
+  @@index([officeId])
+}}
+
+model VendorAMC {{
+  id         String   @id @default(cuid())
+  vendorId   String
+  startDate  DateTime
+  endDate    DateTime
+  amount     Decimal
+  slaDays    Int      // days to resolve issue
+  renewal    DateTime? // alert date for renewal
+  status     String   // ACTIVE, EXPIRED
+
+  vendor     Vendor   @relation(fields: [vendorId], references: [id])
+
+  @@index([vendorId, status])
+  @@index([renewal])
+}}
+
+// ==================== WORKFLOWS & APPROVALS ====================
+model Workflow {{
+  id              String   @id @default(cuid())
+  officeId        String
+  billId          String?
+  entityType      String   // BILL, LEASE, COMPLIANCE, ASSET_REQUEST
+  entityId        String
+  currentStep     Int      // 1 = MAKER, 2 = CHECKER, 3 = AUTHORIZER
+  status          WorkflowStatus
+  makerUserId     String
+  checkerUserId   String?
+  authorizerUserId String?
+  makerRemarks    String?
+  checkerRemarks  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  office          Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  bill            Bill?    @relation(fields: [billId], references: [id], onDelete: SetNull)
+  user            User     @relation(fields: [makerUserId], references: [id])
+
+  @@index([officeId, status])
+  @@index([checkerUserId])
+  @@index([authorizerUserId])
+}}
+
+enum WorkflowStatus {{
+  DRAFT
+  PENDING_CHECKER
+  PENDING_AUTHORIZER
+  APPROVED
+  REJECTED
+  RETURNED
+  PAID
+}}
+
+// ==================== BILLING & SUBSCRIPTIONS ====================
+model Billing {{
+  id              String   @id @default(cuid())
+  organizationId  String   @unique
+  plan            String   // FREE_TRIAL, STARTER, GROWTH, ENTERPRISE
+  officeLimit     Int      // 1, 5, unlimited
+  userLimit       Int      // 5, 20, unlimited
+  trialStartDate  DateTime?
+  trialEndDate    DateTime?
+  status          String   // TRIAL, ACTIVE, EXPIRED, UNPAID
+  nextBillingDate DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization    Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([status])
+}}
+
+// ==================== NEXTAUTH SCHEMA ====================
+model Account {{
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}}
+
+model Session {{
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}}
+
+model VerificationToken {{
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}}</pre>
+        </div>
+
+        <div class="alert alert-info mt-4 gap-2 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div>
+            <p><strong>RLS Policy:</strong> All queries filter by <code>office_id</code>. PostgreSQL RLS policies enforce: User can only see/modify bills, leases, compliance, etc. for their office(s).</p>
+            <p class="mt-2"><strong>Indexes:</strong> Added on <code>officeId, status, dueDate, expiryDate</code> for fast queries and approval workflows.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Master Data Checklist Pattern -->
+    <section class="mb-10 card card-border bg-amber-50 shadow-md">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">Master Data Checklist Pattern (UX Optimization)</h2>
+        <p class="text-base-content/70 mb-4">Replace free-form text with predefined master lists. Users checkmark → System batch-creates records. Faster, consistent, queryable.</p>
+
+        <div class="grid gap-4">
+          <div class="bg-white p-4 rounded-lg border-l-4 border-amber-500">
+            <p class="font-semibold mb-2">✓ Utilities</p>
+            <p class="text-sm text-base-content/60 mb-2">Master list: ELECTRICITY, WATER, GAS, INTERNET, TELEPHONE, DG, UPS, SOLAR</p>
+            <p class="text-sm"><strong>Flow:</strong> Checkboxes → Select utilities → Specify provider + meter → Submit → System creates UtilityConnection records</p>
+            <p class="text-xs text-base-content/50 mt-2">Reduces entry friction, prevents typos, enables fast filtering in dashboards</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-amber-500">
+            <p class="font-semibold mb-2">✓ Facilities</p>
+            <p class="text-sm text-base-content/60 mb-2">Master list: CLEANING, AC/HVAC, DG, UPS, GENERATOR, BUILDING_MAINTENANCE</p>
+            <p class="text-sm"><strong>Flow:</strong> Checkboxes → Select facilities → Assign owner → Submit → Facility register auto-populated</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-amber-500">
+            <p class="font-semibold mb-2">✓ Compliance Types</p>
+            <p class="text-sm text-base-content/60 mb-2">Hardcoded for India: TRADE_LICENCE, FIRE_NOC, ELECTRICAL_SAFETY, LIFT, POLLUTION</p>
+            <p class="text-sm"><strong>Flow:</strong> Checkboxes → Mark applicable certifications → System tracks expiry dates</p>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-amber-500">
+            <p class="font-semibold mb-2">✓ Vendor Categories</p>
+            <p class="text-sm text-base-content/60 mb-2">Master list: MAINTENANCE, CLEANING, IT_SUPPORT, ELECTRICAL, HVAC, PLUMBING</p>
+            <p class="text-sm"><strong>Flow:</strong> Vendor profile → Select category → Checkboxes for facilities served</p>
+          </div>
+        </div>
+
+        <div class="alert alert-info mt-4 gap-2 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div>
+            <p><strong>Implementation:</strong> Add *Type models (UtilityType, FacilityType, VendorCategory) to Prisma schema. Cycle 1 adds static seed data. Cycle 2 builds UI with checkboxes + batch create endpoints.</p>
+            <p class="mt-2"><strong>Benefits:</strong> Faster data entry (no typing), data consistency, better reporting & analytics, reduced admin overhead.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UX & Information Architecture -->
+    <section class="mb-10 card card-border bg-purple-50 shadow-md">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4">UX & Information Architecture</h2>
+        <p class="text-base-content/70 mb-4">Group related features + Navbar organization + Wizard-based forms to minimize cognitive load.</p>
+
+        <div class="grid gap-4 mb-6">
+          <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+            <p class="font-semibold mb-3">Tenant App Navbar (Left Sidebar)</p>
+            <div class="text-sm space-y-2 font-mono">
+              <p><strong>📋 Setup & Onboarding</strong> (Cycle 1)</p>
+              <p class="pl-4">• Office Details • Setup Checklist • Role & Users</p>
+              <p><strong>💡 Utilities & Bills</strong> (Cycle 2)</p>
+              <p class="pl-4">• Connections • Bills → Approvals → Payments • Payment History</p>
+              <p><strong>🏢 Property & Lease</strong> (Cycle 3)</p>
+              <p class="pl-4">• Owned/Rented • Landlord Details • Lease Terms</p>
+              <p><strong>📋 Compliance & Assets</strong> (Cycle 3-4)</p>
+              <p class="pl-4">• Compliance Register • Asset Register • Employee Requests</p>
+              <p><strong>🔧 Facilities & Maintenance</strong> (Cycle 4)</p>
+              <p class="pl-4">• Facility Checklist • Work Orders • Vendors & AMC</p>
+              <p><strong>📊 Reports & Actions</strong> (All cycles)</p>
+              <p class="pl-4">• My Actions Queue • Dashboards (Office Home, Costs, Compliance)</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+            <p class="font-semibold mb-3">Wizard-Based Forms (Multi-Step)</p>
+            <p class="text-sm text-base-content/60 mb-3">Large forms split into logical steps. Each step = one topic group.</p>
+            <div class="text-sm space-y-2">
+              <p><strong>✓ Office Onboarding Wizard (Cycle 1):</strong> Org details → Owned/Rented? → Setup Readiness → Invite team</p>
+              <p><strong>✓ Utility Setup Wizard (Cycle 2):</strong> Select utilities (checkboxes) → Provider details → Confirm & Save</p>
+              <p><strong>✓ Lease Setup Wizard (Cycle 3):</strong> Owned/Rented → Landlord → Lease terms → Review</p>
+              <p><strong>✓ Bill Approval (All cycles):</strong> Separate modal (focused UX, not in main form)</p>
+            </div>
+          </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-purple-500">
+            <p class="font-semibold mb-3">Cognitive Load Principles</p>
+            <ul class="text-sm space-y-1 list-inside">
+              <li>✓ Group by domain (Utilities → Bills → Approvals → Payments)</li>
+              <li>✓ Progressive disclosure (Wizard reveals fields step-by-step)</li>
+              <li>✓ Consistent patterns (Same wizard style everywhere)</li>
+              <li>✓ Clear navigation (Persistent left sidebar, no context-switching)</li>
+              <li>✓ Avoid overwhelm (Never show 20 fields at once)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="alert alert-info gap-2 text-sm">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <p><strong>Implementation:</strong> Build navbar structure + Wizard components in Cycle 1. Subsequent cycles add content within established sections (no restructuring).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Feature Categories by Module -->
+    <div class="grid gap-6 mb-10">
+      <!-- Guided Office Onboarding - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Guided Office Onboarding
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Step-by-step setup that generates admin checklist instead of blank forms</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Organization & Office Setup</div>
+                <div class="text-sm text-base-content/60">Company → Office hierarchy with address, jurisdiction, building structure</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Readiness Checklist</div>
+                <div class="text-sm text-base-content/60">Yes/No/Not Applicable questionnaire for utilities, facilities, compliance, vendors, assets</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Setup Completion Tracking</div>
+                <div class="text-sm text-base-content/60">% completed vs applicable items; blocks workflows until mandatory config done</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Role Assignment & Activation</div>
+                <div class="text-sm text-base-content/60">Office Admin invites users by email → System sends invite link → User signs up → Assigned role auto-activates. Roles: Admin, Checker, Finance/Payment Authorizer, Compliance, Vendor Mgr, Facility Staff</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Property & Lease Management - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Property & Lease Management
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Owned/Rented flag + Landlord, lease, rent, CAM, TDS, renewal</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Owned / Rented determination</div>
+                <div class="text-sm text-base-content/60">Determines whether lease workflow applies; routes to landlord setup if rented</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-info">Low</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Landlord Master & Documents</div>
+                <div class="text-sm text-base-content/60">Contact, PAN/TAN, bank details, agreement repository, lease upload</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Recurring Rent & CAM Schedule</div>
+                <div class="text-sm text-base-content/60">Monthly rent, CAM charges, escalation clause, TDS calculation</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Lease Renewal & Deposit Tracking</div>
+                <div class="text-sm text-base-content/60">180/90/60/30-day reminders, security deposit refund tracking, renewal alerts</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-warning">Medium</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Utility Management - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Utility Management
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Electricity, Water, Internet, Telephone, Gas, DG, UPS, Solar; bills, approvals, payments</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Utility Connection Setup</div>
+                <div class="text-sm text-base-content/60">Office/floor mapping, provider, meter/account, billing cycle, sanctioned load</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Recurring Obligation Engine</div>
+                <div class="text-sm text-base-content/60">Generates expected bill instances before receipt; alerts on missing bills by SLA</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-error">High</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Bill Entry & Approval Workflow</div>
+                <div class="text-sm text-base-content/60">Bill form → Maker enters amount/date → Checker approves → Finance/Payment Authorizer → Pay/record</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Payment Tracking & History</div>
+                <div class="text-sm text-base-content/60">External payment mode + (P1) Gateway execution, partial/overdue, payment register</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Optional Consumption Tracking</div>
+                <div class="text-sm text-base-content/60">Manual meter readings, consumption trend, budget vs actual (no IoT required)</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-info">Low</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workflows & Approvals - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Workflows & Approvals Engine
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Maker → Checker → Payment Authorizer with segregation of duties & office scope</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Role-Based Workflow Routing</div>
+                <div class="text-sm text-base-content/60">Maker, Checker, Payment Authorizer with office scope enforcement</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Segregation of Duties</div>
+                <div class="text-sm text-base-content/60">Same user cannot Maker/Checker or Maker/Authorize same transaction (server-side enforced)</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Approval Actions & Remarks</div>
+                <div class="text-sm text-base-content/60">Approve / Reject / Return with required remarks; multi-step approval chain</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-info">Low</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">My Actions Queue & Notifications</div>
+                <div class="text-sm text-base-content/60">User-specific pending tasks; email/SMS/push/in-app reminders</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Escalation & Reminders</div>
+                <div class="text-sm text-base-content/60">Configurable pre-due reminders; escalates overdue to Office Head after threshold</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Facilities & Maintenance + Vendors - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Facilities, Maintenance & Vendors
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Service requests, work orders, maintenance history, vendor SLA tracking</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Facility Register & Checklist</div>
+                <div class="text-sm text-base-content/60">Cleaning, AC/HVAC, DG, UPS, building maintenance; ownership assigned per facility</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Maintenance Requests & Work Orders</div>
+                <div class="text-sm text-base-content/60">Employee logs fault → Admin creates work order → Vendor assigned with SLA due date</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Service History & Evidence</div>
+                <div class="text-sm text-base-content/60">Before/after photos/video with timestamp; completion verification; escalation on SLA breach</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Vendor Master & AMC Contracts</div>
+                <div class="text-sm text-base-content/60">Vendor docs, categories, SLA terms, AMC renewal alerts (60/30-day), performance review</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Assets & Compliance - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Assets & Compliance
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Asset register, employee requests, certificates, expiry tracking & renewal</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Asset Register & Lifecycle</div>
+                <div class="text-sm text-base-content/60">IT/Furniture/Equipment/Fixed assets with category, location, custodian, warranty, service history</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Employee Asset Request / Indent</div>
+                <div class="text-sm text-base-content/60">Request → Manager → Admin → Allocate/Procurement handoff; full RFQ/PO out of scope</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Compliance Register</div>
+                <div class="text-sm text-base-content/60">Trade Licence, Fire NOC, Electrical Safety, Lift, Pollution, Utilities; upload & expiry tracking</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Compliance Alerts & Escalation</div>
+                <div class="text-sm text-base-content/60">Configurable pre-expiry reminders; escalates unresolved to Office Head per SLA (15-day default)</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-warning">Medium</span>
+                <span class="badge badge-sm badge-info">Low</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reports & Dashboards - P0 Core -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Reports & Dashboards
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Live transactional data only; no dummy KPI data. Drill-down to source records.</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Office Home & Setup Completion</div>
+                <div class="text-sm text-base-content/60">At-a-glance obligations, actions, pending approvals; % of applicable setup completed</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Utility & Cost Dashboards</div>
+                <div class="text-sm text-base-content/60">Monthly spend by office/utility, trend, budget vs actual, payment status by office</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Lease, Vendor, Maintenance, Compliance Dashboards</div>
+                <div class="text-sm text-base-content/60">Lease expiry pipeline, AMC/vendor SLA, open maintenance, compliance expiry/missing</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Executive Dashboard</div>
+                <div class="text-sm text-base-content/60">Cross-office spend, overdue items, renewals, compliance gaps, budget variance</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-warning">Medium</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Signup, Trial & Subscription - P0 Core (GTM) -->
+      <div class="card card-border bg-base-100 shadow-md">
+        <div class="card-body">
+          <h2 class="card-title text-lg flex items-center gap-2">
+            <span class="badge badge-primary">P0 Core</span>
+            Signup, Trial & Subscription (GTM)
+          </h2>
+          <p class="text-sm text-base-content/70 mb-4">Public signup flow, trial activation, plan selection, subscription management</p>
+          <div class="grid gap-3 mt-4">
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Landing Page & Public Signup</div>
+                <div class="text-sm text-base-content/60">Marketing site, pricing page, email/OAuth signup, email verification</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-info">Low</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Organization & Plan Selection</div>
+                <div class="text-sm text-base-content/60">Company profile form → Select plan (Free Trial, Starter, Growth, Enterprise) → Route to trial or payment</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Trial Activation & Expiry</div>
+                <div class="text-sm text-base-content/60">14-day free trial, auto-expiry, reminders (day 7, 13, 14), trial-expired read-only mode</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Subscription Management & Tiers</div>
+                <div class="text-sm text-base-content/60">Starter ($99/mo, 1 office, 5 users), Growth ($299/mo, 5 offices, 20 users), Enterprise (custom)</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Payment Gateway Integration (P1)</div>
+                <div class="text-sm text-base-content/60">Stripe/Razorpay for card payments, webhook handlers, subscription renewal, failed payment recovery</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-warning">Medium</span>
+                <span class="badge badge-sm badge-error">High</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Billing Dashboard & Upsell</div>
+                <div class="text-sm text-base-content/60">Show current plan, upgrade/downgrade options, usage against tier limits, invoice history</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-warning">Medium</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+            <div class="feature-card flex items-center justify-between p-3 bg-base-200 rounded-lg hover:bg-base-300 cursor-pointer transition" onclick="editFeature(this)">
+              <div>
+                <div class="font-semibold">Subscription Enforcement (API Middleware)</div>
+                <div class="text-sm text-base-content/60">Block writes if trial expired/unpaid; check seat/office limits; enforce read-only mode per tier</div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <span class="badge badge-sm badge-success">High</span>
+                <span class="badge badge-sm badge-warning">Medium</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add New Feature Form -->
+    <section class="card card-border bg-base-100 shadow-md">
+      <div class="card-body">
+        <h3 class="card-title mb-4">Add Custom Feature</h3>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <input type="text" id="featureName" placeholder="Feature name" class="input input-bordered" />
+          <input type="text" id="featureDesc" placeholder="Description" class="input input-bordered" />
+          <select id="featurePriority" class="select select-bordered">
+            <option disabled selected>Priority</option>
+            <option>High</option>
+            <option>Medium</option>
+            <option>Low</option>
+          </select>
+          <select id="featureComplexity" class="select select-bordered">
+            <option disabled selected>Complexity</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+          <select id="featureCategory" class="select select-bordered">
+            <option disabled selected>Category</option>
+            <option>Auth</option>
+            <option>Billing</option>
+            <option>Data</option>
+            <option>Operations</option>
+            <option>Other</option>
+          </select>
+          <button class="btn btn-primary" onclick="addFeature()">Add Feature</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Iterative Release Plan -->
+    <section class="mt-10 card card-border bg-purple-50 shadow-md">
+      <div class="card-body">
+        <h2 class="card-title text-2xl mb-4 flex items-center gap-2">
+          <span class="badge badge-lg badge-secondary">Release Cycles</span>
+          Shippable MVPs Every 2 Weeks
+        </h2>
+        <p class="text-base-content/70 mb-6">Build iteratively. Ship early. Learn fast. Each cycle delivers a working product users can touch.</p>
+
+        <div class="grid gap-4">
+          <!-- Cycle 1 -->
+          <div class="card bg-white border-l-4 border-secondary">
+            <div class="card-body">
+              <h3 class="card-title text-lg mb-2">🚀 Cycle 1: Foundation + Onboarding (Weeks 1-2)</h3>
+              <p class="text-sm text-base-content/70 mb-3"><strong>Shippable MVP:</strong> Users can sign up, create org, start office setup</p>
+              <div class="grid gap-2 text-sm space-y-2">
+                <div>
+                  <p><strong>📱 Website (Marketing):</strong> Landing page • Pricing page • Sign-up form • Email verification flow</p>
+                </div>
+                <div>
+                  <p><strong>🔧 Operator (Control Plane):</strong> Org creation API • Office hierarchy (Company → Office) • User/role management • RBAC foundation • Audit log schema + API • NextAuth setup</p>
+                </div>
+                <div>
+                  <p><strong>👥 Tenant (Product):</strong> Login redirect (from Operator) • Onboarding checklist UI (categories: utilities, facilities, compliance, vendors, assets) • Setup completion % calculation</p>
+                </div>
+                <p><strong>📊 Test:</strong> Signup → Org creation → Office add → Checklist loads</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cycle 2 -->
+          <div class="card bg-white border-l-4 border-info">
+            <div class="card-body">
+              <h3 class="card-title text-lg mb-2">⚡ Cycle 2: Utility Core (Weeks 3-4)</h3>
+              <p class="text-sm text-base-content/70 mb-3"><strong>Shippable MVP:</strong> Users can add utilities, enter bills, route for approval, record payments</p>
+              <div class="grid gap-2 text-sm space-y-2">
+                <div>
+                  <p><strong>📱 Website:</strong> Nothing new (static site stable)</p>
+                </div>
+                <div>
+                  <p><strong>🔧 Operator (Control Plane):</strong> Utility master (type + provider mapping) • Utility connection API • Recurring obligation schedule engine • Bill entity + API • Approval workflow engine (Maker → Checker → Authorizer) • My Actions queue API • Payment tracking API</p>
+                </div>
+                <div>
+                  <p><strong>👥 Tenant (Product):</strong> Utility connection form (office + provider + meter + cycle) • Bill entry form (amount + due date + invoice) • Bill list + detail • Approval queue (Checker view) • Payment recording form (Finance view) • My Actions page</p>
+                </div>
+                <p><strong>📊 Test:</strong> Add utility → System generates expected bills → Submit bill → Approve → Record payment → Paid status shows</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cycle 3 -->
+          <div class="card bg-white border-l-4 border-accent">
+            <div class="card-body">
+              <h3 class="card-title text-lg mb-2">🏢 Cycle 3: Lease + Compliance + Reports (Weeks 5-6)</h3>
+              <p class="text-sm text-base-content/70 mb-3"><strong>Shippable MVP:</strong> Full office obligation tracking + dashboards</p>
+              <div class="grid gap-2 text-sm space-y-2">
+                <div>
+                  <p><strong>📱 Website:</strong> Blog/docs on onboarding (help center links)</p>
+                </div>
+                <div>
+                  <p><strong>🔧 Operator:</strong> Landlord master + lease entity APIs • Lease schedule engine (monthly rent/CAM) • Compliance type master • Compliance instance tracking • Dashboard data APIs (office home, utility costs, lease expiry, compliance status)</p>
+                </div>
+                <div>
+                  <p><strong>👥 Tenant:</strong> Property form (Owned/Rented flag) • Landlord form (if rented) • Lease form (rent, CAM, escalation, TDS) • Lease renewal reminders • Compliance register (add/track/upload certs) • Office Home dashboard • Utility cost dashboard (monthly trend) • Lease dashboard (expiry pipeline)</p>
+                </div>
+                <p><strong>📊 Test:</strong> Rented office → Rent bills auto-generate monthly • Lease renewal alert at 60/30/7 days • Compliance cert status visible • Dashboards show live data</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cycle 4 -->
+          <div class="card bg-white border-l-4 border-warning">
+            <div class="card-body">
+              <h3 class="card-title text-lg mb-2">🎯 Cycle 4: Assets + Facilities + Launch (Weeks 7-8)</h3>
+              <p class="text-sm text-base-content/70 mb-3"><strong>Shippable MVP:</strong> Complete P0 product + hardened for production</p>
+              <div class="grid gap-2 text-sm space-y-2">
+                <div>
+                  <p><strong>📱 Website:</strong> Sign-up → Trial redirect • Billing page link • Help center full</p>
+                </div>
+                <div>
+                  <p><strong>🔧 Operator:</strong> Asset master + custodian APIs • Facility master • Vendor master + AMC + SLA APIs • Executive dashboard data APIs • Payment history export (CSV/JSON) • RLS hardening (all queries tested) • Performance tuning (query indexes) • Load testing (50+ concurrent users)</p>
+                </div>
+                <div>
+                  <p><strong>👥 Tenant:</strong> Asset register (IT, furniture, equipment) • Asset assignment/custodian tracking • Employee asset request form/queue • Facility register (AC, DG, UPS, etc) • Facility request routing • Vendor directory • Vendor AMC tracking • Executive dashboard (cross-office spend, overdue items, compliance gaps) • Payment history export • All dashboards complete</p>
+                </div>
+                <p><strong>📊 Test:</strong> Full user journey: Signup → Org → Office → Setup → Run utilities/lease/compliance/assets → Dashboards populated • RLS permission checks • 50-office stress test • Security audit</p>
+                <p><strong>🚀 Ship:</strong> Production launch to beta customers (Starter/Growth tiers)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cycle Strategy -->
+        <div class="divider my-6">Cycle Strategy</div>
+        <div class="alert alert-info gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 stroke-current flex-shrink-0"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          <div>
+            <p class="font-semibold">Each Cycle:</p>
+            <ul class="text-sm mt-2 space-y-1">
+              <li>• Builds on previous cycle (no rework)</li>
+              <li>• Ships working code to staging (internal test orgs)</li>
+              <li>• Gets feedback from early users</li>
+              <li>• Informs Cycle N+1 scope</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Decisions Section - LOCKED IN -->
+    <section class="mt-10 card card-border bg-green-50 shadow-md">
+      <div class="card-body">
+        <h3 class="card-title mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 stroke-current text-success"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          Locked Decisions ✅
+        </h3>
+        <div class="space-y-4">
+          <div class="bg-white p-4 rounded-lg border-l-4 border-success">
+            <p class="font-semibold mb-1 text-success">✅ 1. Database Model: Shared DB with RLS</p>
+            <p class="text-sm text-base-content/70">Single PostgreSQL for all tenants. Row-level security policies enforce office scope. Simplified ops, Prisma schema once.</p>
+            <div class="badge badge-success gap-2 mt-2">LOCKED</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border-l-4 border-success">
+            <p class="font-semibold mb-1 text-success">✅ 2. MVP Scope: P0 Features Only</p>
+            <p class="text-sm text-base-content/70">Launch with P0 core only: Onboarding → Utility → Lease → Compliance → Assets → Facilities → Dashboards → Signup/Trial. No P1 features in release.</p>
+            <div class="badge badge-success gap-2 mt-2">LOCKED</div>
+          </div>
+        </div>
+
+          <div class="bg-white p-4 rounded-lg border-l-4 border-success">
+            <p class="font-semibold mb-1 text-success">✅ 3. Finance Integration: Deferred to P1</p>
+            <p class="text-sm text-base-content/70">No Tally or ERP export in P0. Payment data stored cleanly in DB. P1 integration when Finance needs it.</p>
+            <div class="badge badge-success gap-2 mt-2">LOCKED</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border-l-4 border-success">
+            <p class="font-semibold mb-1 text-success">✅ 4. India-First Compliance: Defaults Locked</p>
+            <p class="text-sm text-base-content/70">Standard compliance types hardcoded: Trade Licence, Fire NOC, Electrical Safety, Lift, Pollution. Faster launch, India-focused.</p>
+            <div class="badge badge-success gap-2 mt-2">LOCKED</div>
+          </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-sm text-base-content/60">
+      <p>Click on any feature to edit • Use annotations to mark decisions and next steps</p>
+    </footer>
+  </main>
+
+  <script>
+    function editFeature(el) {
+      const title = el.querySelector('.font-semibold').textContent;
+      alert(`Edit: ${title}\n\nIn the full app, this would open an editor panel.`);
+    }
+
+    function addFeature() {
+      const name = document.getElementById('featureName').value;
+      const desc = document.getElementById('featureDesc').value;
+      const priority = document.getElementById('featurePriority').value;
+      const complexity = document.getElementById('featureComplexity').value;
+
+      if (!name || !priority || !complexity) {
+        alert('Please fill in all fields');
+        return;
+      }
+
+      alert(`Added: ${name}\n${desc}\n\nPriority: ${priority} | Complexity: ${complexity}`);
+
+      // Clear form
+      document.getElementById('featureName').value = '';
+      document.getElementById('featureDesc').value = '';
+      document.getElementById('featurePriority').value = 'Priority';
+      document.getElementById('featureComplexity').value = 'Complexity';
+    }
+
+    function recordDecision(category, choice) {
+      alert(`Decision recorded: ${category} = ${choice}\n\nIn Lavish, this would send feedback.`);
+    }
+  </script>
+</body>
+</html>

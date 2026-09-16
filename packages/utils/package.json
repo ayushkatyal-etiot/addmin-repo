@@ -1,0 +1,21 @@
+{
+  "name": "@addmin/utils",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared utilities for AddMin (RLS, validation, formatting)",
+  "exports": {
+    ".": "./index.ts",
+    "./rls": "./rls.ts",
+    "./validators": "./validators.ts",
+    "./formatters": "./formatters.ts"
+  },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.0"
+  }
+}

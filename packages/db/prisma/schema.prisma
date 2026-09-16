@@ -1,0 +1,446 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== CORE ORGANIZATION ====================
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  website   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  offices Office[]
+  billing Billing?
+
+  @@index([email])
+}
+
+model Office {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  address        String
+  city           String
+  state          String
+  zipCode        String
+  country        String @default("India")
+  isOwned        Boolean
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  users               OfficeUser[]
+  utilities           UtilityConnection[]
+  lease               Lease?
+  landlord            Landlord?
+  bills               Bill[]
+  compliance          ComplianceInstance[]
+  assets              Asset[]
+  facilities          Facility[]
+  vendors             Vendor[]
+  workflows           Workflow[]
+  maintenanceRequests MaintenanceRequest[]
+
+  @@unique([organizationId, name])
+  @@index([organizationId])
+}
+
+// ==================== USERS & ROLES ====================
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts      Account[]
+  sessions      Session[]
+  officeUsers   OfficeUser[]
+  invites       UserInvite[]
+  workflowSteps Workflow[]
+
+  @@index([email])
+}
+
+model OfficeUser {
+  id        String   @id @default(cuid())
+  userId    String
+  officeId  String
+  role      Role
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  office Office @relation(fields: [officeId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, officeId])
+  @@index([officeId])
+}
+
+enum Role {
+  ADMIN
+  CHECKER
+  AUTHORIZER
+  COMPLIANCE
+  VENDOR_MGR
+  FACILITY_STAFF
+}
+
+model UserInvite {
+  id        String   @id @default(cuid())
+  email     String
+  officeId  String
+  role      Role
+  token     String   @unique
+  expiresAt DateTime
+  userId    String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+// ==================== UTILITIES ====================
+model UtilityConnection {
+  id           String   @id @default(cuid())
+  officeId     String
+  type         String
+  provider     String
+  accountNum   String
+  meterNum     String?
+  billingCycle Int
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  office Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  bills  Bill[]
+
+  @@unique([officeId, type, provider])
+  @@index([officeId])
+}
+
+model Bill {
+  id           String   @id @default(cuid())
+  officeId     String
+  utilityId    String
+  amount       Decimal
+  dueDate      DateTime
+  invoiceNum   String?
+  status       WorkflowStatus
+  madeBy       String
+  checkedBy    String?
+  authorizedBy String?
+  remarks      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  office    Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  utility   UtilityConnection @relation(fields: [utilityId], references: [id], onDelete: Cascade)
+  payments  Payment[]
+  workflows Workflow[]
+
+  @@index([officeId, status])
+  @@index([dueDate])
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  billId    String
+  amount    Decimal
+  mode      String
+  date      DateTime
+  refNum    String?
+  createdAt DateTime @default(now())
+
+  bill Bill @relation(fields: [billId], references: [id], onDelete: Cascade)
+
+  @@index([billId])
+}
+
+// ==================== LEASE & LANDLORD ====================
+model Landlord {
+  id        String   @id @default(cuid())
+  officeId  String   @unique
+  name      String
+  panTan    String?
+  phone     String?
+  email     String?
+  bankName  String?
+  bankAcct  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  office Office  @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  leases Lease[]
+
+  @@index([officeId])
+}
+
+model Lease {
+  id                String   @id @default(cuid())
+  officeId          String   @unique
+  landlordId        String
+  rentAmount        Decimal
+  camAmount         Decimal?
+  escalation        Int?
+  securityDeposit   Decimal?
+  depositRefundDate DateTime?
+  startDate         DateTime
+  endDate           DateTime?
+  tdsPercent        Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  office   Office   @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  landlord Landlord @relation(fields: [landlordId], references: [id])
+
+  @@index([officeId])
+}
+
+// ==================== COMPLIANCE ====================
+model ComplianceType {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  category  String
+
+  instances ComplianceInstance[]
+}
+
+model ComplianceInstance {
+  id             String   @id @default(cuid())
+  officeId       String
+  typeId         String
+  certificateNum String?
+  issueDate      DateTime
+  expiryDate     DateTime
+  status         String
+  documentUrl    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  office Office         @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  type   ComplianceType @relation(fields: [typeId], references: [id])
+
+  @@unique([officeId, typeId])
+  @@index([officeId, expiryDate])
+}
+
+// ==================== ASSETS ====================
+model Asset {
+  id           String   @id @default(cuid())
+  officeId     String
+  name         String
+  category     String
+  location     String?
+  custodian    String?
+  purchaseDate DateTime?
+  value        Decimal?
+  warrantyEnd  DateTime?
+  status       String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  office   Office         @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  requests AssetRequest[]
+
+  @@index([officeId, status])
+}
+
+model AssetRequest {
+  id          String   @id @default(cuid())
+  officeId    String
+  requestedBy String
+  assetId     String?
+  category    String?
+  description String
+  status      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  asset Asset? @relation(fields: [assetId], references: [id])
+
+  @@index([officeId, status])
+}
+
+// ==================== FACILITIES ====================
+model Facility {
+  id        String   @id @default(cuid())
+  officeId  String
+  name      String
+  owner     String?
+  lastMaint DateTime?
+  createdAt DateTime @default(now())
+
+  office   Office               @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  requests MaintenanceRequest[]
+
+  @@unique([officeId, name])
+  @@index([officeId])
+}
+
+model MaintenanceRequest {
+  id          String   @id @default(cuid())
+  facilityId  String
+  officeId    String
+  reportedBy  String
+  description String
+  status      String
+  vendorId    String?
+  slaDueDate  DateTime?
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+
+  facility Facility                @relation(fields: [facilityId], references: [id])
+  office   Office                  @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  vendor   Vendor?                 @relation(fields: [vendorId], references: [id])
+  evidence MaintenanceEvidence[]
+
+  @@index([officeId, status])
+  @@index([slaDueDate])
+}
+
+model MaintenanceEvidence {
+  id        String   @id @default(cuid())
+  requestId String
+  type      String
+  url       String
+  capturedAt DateTime
+
+  request MaintenanceRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+}
+
+// ==================== VENDORS ====================
+model Vendor {
+  id        String   @id @default(cuid())
+  officeId  String
+  name      String
+  category  String
+  phone     String?
+  email     String?
+  gstNum    String?
+  createdAt DateTime @default(now())
+
+  office   Office              @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  amc      VendorAMC[]
+  requests MaintenanceRequest[]
+
+  @@unique([officeId, name])
+  @@index([officeId])
+}
+
+model VendorAMC {
+  id       String   @id @default(cuid())
+  vendorId String
+  startDate DateTime
+  endDate   DateTime
+  amount   Decimal
+  slaDays  Int
+  renewal  DateTime?
+  status   String
+
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+
+  @@index([vendorId, status])
+  @@index([renewal])
+}
+
+// ==================== WORKFLOWS & APPROVALS ====================
+model Workflow {
+  id               String   @id @default(cuid())
+  officeId         String
+  billId           String?
+  entityType       String
+  entityId         String
+  currentStep      Int
+  status           WorkflowStatus
+  makerUserId      String
+  checkerUserId    String?
+  authorizerUserId String?
+  makerRemarks     String?
+  checkerRemarks   String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  office Office @relation(fields: [officeId], references: [id], onDelete: Cascade)
+  bill   Bill?  @relation(fields: [billId], references: [id], onDelete: SetNull)
+  user   User   @relation(fields: [makerUserId], references: [id])
+
+  @@index([officeId, status])
+  @@index([checkerUserId])
+  @@index([authorizerUserId])
+}
+
+enum WorkflowStatus {
+  DRAFT
+  PENDING_CHECKER
+  PENDING_AUTHORIZER
+  APPROVED
+  REJECTED
+  RETURNED
+  PAID
+}
+
+// ==================== BILLING & SUBSCRIPTIONS ====================
+model Billing {
+  id              String   @id @default(cuid())
+  organizationId  String   @unique
+  plan            String
+  officeLimit     Int
+  userLimit       Int
+  trialStartDate  DateTime?
+  trialEndDate    DateTime?
+  status          String
+  nextBillingDate DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@index([organizationId])
+  @@index([status])
+}
+
+// ==================== NEXTAUTH SCHEMA ====================
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
